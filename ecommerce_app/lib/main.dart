@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'screens/login_screen.dart';
-import 'package:ecommerce_app/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
+import 'firebase_options.dart';
+
+import 'providers/cart_provider.dart';
+import 'screens/auth_wrapper.dart';
+import 'screens/cart_screen.dart';
 
 void main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Wrap MyApp() with ChangeNotifierProvider
   runApp(
     ChangeNotifierProvider(
-      create: (context) => CartProvider(),
+      create: (_) => CartProvider(),
       child: const MyApp(),
     ),
   );
-
-  FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatelessWidget {
@@ -31,10 +27,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'eCommerce App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.deepPurple),
-      home: const LoginScreen(),
+      home: const AuthWrapper(),
+      routes: {
+        '/cart': (context) => const CartScreen(),
+      },
     );
   }
 }

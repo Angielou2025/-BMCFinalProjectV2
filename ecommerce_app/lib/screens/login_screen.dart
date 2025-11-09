@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'signup_screen.dart';
-import 'home_screen.dart'; // ✅ Import mo ang HomeScreen
+import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -40,12 +40,9 @@ class _LoginScreenState extends State<LoginScreen> {
         const SnackBar(content: Text('Login Successful!')),
       );
 
-      // ✅ Pagkatapos mag-login, papunta na sa HomeScreen
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
-        ),
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
     } on FirebaseAuthException catch (e) {
       String message = 'An error occurred';
@@ -99,7 +96,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 30),
 
-                // Email field
                 TextFormField(
                   controller: _emailController,
                   decoration: InputDecoration(
@@ -124,7 +120,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 const SizedBox(height: 15),
 
-                // Password field
                 TextFormField(
                   controller: _passwordController,
                   obscureText: true,
@@ -149,7 +144,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 const SizedBox(height: 25),
 
-                // Login Button
                 SizedBox(
                   width: double.infinity,
                   height: 50,
@@ -165,8 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ? const CircularProgressIndicator(color: Colors.white)
                         : const Text(
                       'Login',
-                      style:
-                      TextStyle(fontSize: 18, color: Colors.white),
+                      style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),
                 ),
